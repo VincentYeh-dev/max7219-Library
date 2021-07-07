@@ -1,19 +1,7 @@
 #ifndef __MAX7219
 #define __MAX7219
 
-
-#if (defined(__AVR__))
-  #include <avr/pgmspace.h>
-#else
-  #include <pgmspace.h>
-#endif
-
-#if ARDUINO >= 100
-  #include "Arduino.h"
-#else
-  #include "WProgram.h" /* This is where the standard Arduino code lies */
-#endif
-
+#include "Arduino.h"
 
 
 #define MAX7219_NUMBER 2
