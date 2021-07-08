@@ -4,7 +4,6 @@
 #include "Arduino.h"
 
 
-#define MAX7219_NUMBER 2
 #define MAX7219_ADRR_DIGIT(d) ((d+1)<<8)
 #define MAX7219_ADRR_DECODE_MODE 0x0900
 #define MAX7219_ADRR_INTENSITY 0x0a00

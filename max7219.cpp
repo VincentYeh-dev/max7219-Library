@@ -23,7 +23,7 @@ void MAX7219::init()
 	shutdown(1);
 	setDecodeMode(0);
 	clear();
-	setIntensity(0x0F);
+	setIntensity(0x05);
 	setScanLimit(0x07);
 	shutdown(0);
 	
@@ -32,7 +32,7 @@ void MAX7219::init()
 void MAX7219::set_all_register(uint16_t data){
 	pullCSDown();
 	char i=0;
-	for(i=0;i<MAX7219_NUMBER;i++){
+	for(i=0;i<numberOfMax;i++){
 		shiftOut(data);
 	}
 	pullCSUp();
@@ -40,7 +40,7 @@ void MAX7219::set_all_register(uint16_t data){
 
 void MAX7219::set_single_register(uint8_t index,uint16_t data){
 	pullCSDown();
-	for(int i=MAX7219_NUMBER-1;i>=0;i--){
+	for(int i=numberOfMax-1;i>=0;i--){
 		if(i==index){
 			shiftOut(data);
 		}else{
