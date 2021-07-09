@@ -16,15 +16,17 @@
 class MAX7219
 {
   public:
+	static const int ALL_MAX=-1;
+
     MAX7219(int din,int cs,int clk,int numberOfMax);
 	void init();
-	void clear();
-	void shutdown(_Bool enable);
-	void displayTest(_Bool enable);
-	void setDecodeMode(uint8_t decode);
-	void setIntensity(uint8_t intensity);
-	void setScanLimit(uint8_t limit);
-	void setDigit(uint8_t index,uint8_t digit,uint8_t data);
+	void clear(int index);
+	void shutdown(int index,_Bool enable);
+	void displayTest(int index,_Bool enable);
+	void setDecodeMode(int index,uint8_t decode);
+	void setIntensity(int index,uint8_t intensity);
+	void setScanLimit(int index,uint8_t limit);
+	void setDigit(int index,uint8_t digit,uint8_t data);
   private:
 	int pin_din;
 	int pin_cs;
@@ -32,6 +34,7 @@ class MAX7219
 	int numberOfMax;
 	void set_all_register(uint16_t);
 	void set_single_register(uint8_t,uint16_t);
+	void set_register(int index,uint16_t data);
 	void shiftOut(uint16_t);
 	void pullCSDown();
 	void pullCSUp();

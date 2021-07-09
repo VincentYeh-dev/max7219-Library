@@ -17,15 +17,15 @@ void MAX7219::init()
 	digitalWrite(pin_clk,LOW);
 	
 	
-	displayTest(1);
+	displayTest(ALL_MAX,1);
 	delay(200);
-	displayTest(0);
-	shutdown(1);
-	setDecodeMode(0);
-	clear();
-	setIntensity(0x05);
-	setScanLimit(0x07);
-	shutdown(0);
+	displayTest(ALL_MAX,0);
+	shutdown(ALL_MAX,1);
+	setDecodeMode(ALL_MAX,0);
+	clear(ALL_MAX);
+	setIntensity(ALL_MAX,0x05);
+	setScanLimit(ALL_MAX,0x07);
+	shutdown(ALL_MAX,0);
 	
 }
 
@@ -50,11 +50,17 @@ void MAX7219::set_single_register(uint8_t index,uint16_t data){
 	
 	pullCSUp();
 }
+void MAX7219::set_register(int index,uint16_t data){
+	if(index==ALL_MAX)
+		set_all_register(data);
+	else
+		set_single_register(index,data);
+}
 
-void MAX7219::clear(){
+void MAX7219::clear(int index){
 	uint8_t i=0;
 	for(;i<8;i++){
-		set_all_register(MAX7219_ADRR_DIGIT(i));
+		setDigit(index,i,0);
 	}
 }
 
@@ -79,28 +85,28 @@ void MAX7219::shiftOut(uint16_t data){
 		digitalWrite(pin_din,LOW);
 }
 
-void MAX7219::setDigit(uint8_t index,uint8_t digit,uint8_t data){
-	set_single_register(index,MAX7219_ADRR_DIGIT(digit)|data);
+void MAX7219::setDigit(int index,uint8_t digit,uint8_t data){
+	set_register(index,MAX7219_ADRR_DIGIT(digit)|data);
 }
 
-void MAX7219::shutdown(_Bool enable){
-	set_all_register(MAX7219_ADRR_SHUTDOWN|!enable);
+void MAX7219::shutdown(int index,_Bool enable){
+	set_register(index,MAX7219_ADRR_SHUTDOWN|!enable);
 }
 
-void MAX7219::displayTest(_Bool enable){
-	set_all_register(MAX7219_ADRR_DISPLAY_TEST|enable);
+void MAX7219::displayTest(int index,_Bool enable){
+	set_register(index,MAX7219_ADRR_DISPLAY_TEST|enable);
 }
 
-void MAX7219::setDecodeMode(uint8_t decode){
-	set_all_register(MAX7219_ADRR_DECODE_MODE|decode);
+void MAX7219::setDecodeMode(int index,uint8_t decode){
+	set_register(index,MAX7219_ADRR_DECODE_MODE|decode);
 }
 
-void MAX7219::setIntensity(uint8_t intensity){
-	set_all_register(MAX7219_ADRR_INTENSITY|intensity);
+void MAX7219::setIntensity(int index,uint8_t intensity){
+	set_register(index,MAX7219_ADRR_INTENSITY|intensity);
 }
 
-void MAX7219::setScanLimit(uint8_t limit){
-	set_all_register(MAX7219_ADRR_SCAN_LIMIT|limit);
+void MAX7219::setScanLimit(int index,uint8_t limit){
+	set_register(index,MAX7219_ADRR_SCAN_LIMIT|limit);
 }
 
 void MAX7219::pullCSDown(){

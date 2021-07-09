@@ -11,8 +11,8 @@ void setup() {
 }
 
 void loop() {
-  max7219.displayTest(1);
+  max7219.displayTest(MAX7219::ALL_MAX,1);
   delay(1000);
-  max7219.displayTest(0);
+  max7219.displayTest(MAX7219::ALL_MAX,0);
   delay(1000);
 }

@@ -13,9 +13,8 @@ void setup() {
 void loop() {
   for (int i = 0; i < 8; i++)
   {
-    max7219.setDigit(0,i,0xff);
-    max7219.setDigit(1,i,0xff);
+    max7219.setDigit(MAX7219::ALL_MAX,i,0xff);
     delay(1000);
   }
-  max7219.clear();
+  max7219.clear(MAX7219::ALL_MAX);
 }
